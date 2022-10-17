@@ -1,0 +1,52 @@
+
+<h1 class="display-4 my-3">Todo items</h1>
+
+
+<div id="container"  class="d-flex justify-content-between">
+  <a routerLink="/todo/add"><button class="btn btn-primary my-2">Add new Todo</button></a>
+
+  <nav class="my-3" >
+    <ul class="pagination">
+      <li class="page-item"><button class="p-0 m-0"  (click)="getPreviousPage()" [disabled]="!nextprevbutton" ><a class="page-link">Previous</a></button></li>
+      <li  class="page-item"><button class="p-0 m-0"  (click)="getNextPage()" [disabled]="!nextprevbutton"><a class="page-link">Next</a></button></li>
+    </ul>
+  </nav>
+  <div id="filter">
+    <select class="my-3" [(ngModel)]="selected" (ngModelChange)='OnIdSelected($event)'>
+      <option *ngFor="let u of users" [value]="u.id">{{u.username}}</option>
+    </select>
+  
+    <button (click)="reloadTodos()" class="btn"><i class="fa fa-undo"></i></button>
+  </div>
+  
+
+</div>
+
+
+<div *ngIf="todos.length === 0" class="alert alert-info">
+  You haven't added any todo items yet.
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Username</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todoItem of todos">
+        <th scope="row">{{ todoItem.id }}</th>
+        <td>{{ todoItem.title }}</td>
+        <td>{{ todoItem.completed }}</td>
+        <td>{{ todoItem.user.username}}</td>
+        <td><button (click)="deleteTodo(todoItem.id)" class="btn m-0 p-0"><i class="fa fa-close " style="color:red"></i></button></td>
+      </tr>
+    </tbody>
+  </table>

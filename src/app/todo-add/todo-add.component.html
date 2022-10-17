@@ -1,0 +1,52 @@
+
+<form [formGroup]="addForm" (ngSubmit)="onSave()">
+    <div class="form-group">
+        <label for="id">UserId</label>
+        <input 
+            type="number" 
+            name="age"
+            class="form-control" 
+            id="id"
+            placeholder="Enter user Id"
+            formControlName="id"
+            required
+        />
+    </div>
+
+    <div *ngIf="f['id'].errors?.['min']" class="alert alert-danger">
+        Id > 0
+    </div>
+
+    
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="title" 
+          placeholder="Enter title"
+          formControlName="title">
+    </div>
+
+    <div *ngIf="f['title'].errors?.['required']">
+        Title is required.
+      </div>
+      <div *ngIf="f['title'].errors?.['maxlength']" class="alert alert-danger">
+        Title must be at most 200 characters long.
+      </div>
+
+    <div class="form-group">
+        <label for="completed">Completed</label>
+        <select class="form-control" formControlName="completed">
+             <option value="completed">Completed</option>
+             <option value="notcompleted">Not completed</option>
+        </select>
+       
+    </div>
+
+
+    <hr>
+    <div *ngIf="error" class="alert alert-danger">User Id doesn't exist. Try again.</div>
+    <div *ngIf="success" class="alert alert alert-success">Todo added correctly</div>
+    <button class="btn btn-primary" type="submit" [disabled]="addForm.invalid">Add</button>
+</form>
